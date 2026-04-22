@@ -53,20 +53,30 @@ export function IowaMap({
 
   const makeMarkerEl = useCallback(
     (siteId: string, highlighted: boolean): HTMLDivElement => {
-      const el = document.createElement('div')
+      const wrapper = document.createElement('div')
+      wrapper.className = 'station-marker'
+      wrapper.style.cssText = `
+        width: 44px;
+        height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+      `
+      const dot = document.createElement('div')
       const color = getColor(siteId)
-      el.className = 'station-marker'
-      el.style.cssText = `
+      dot.style.cssText = `
         width: ${highlighted ? '16px' : '12px'};
         height: ${highlighted ? '16px' : '12px'};
         border-radius: 50%;
         background: ${color};
         border: ${highlighted ? '3px' : '2px'} solid white;
         box-shadow: 0 1px 4px rgba(0,0,0,0.35);
-        cursor: pointer;
+        pointer-events: none;
         transition: width 0.1s, height 0.1s;
       `
-      return el
+      wrapper.appendChild(dot)
+      return wrapper
     },
     [getColor],
   )
@@ -124,12 +134,12 @@ export function IowaMap({
 
       if (markersRef.current.has(id)) {
         const marker = markersRef.current.get(id)!
-        const el = marker.getElement()
+        const dot = marker.getElement().firstElementChild as HTMLDivElement
         const color = getColor(id)
-        el.style.background = color
-        el.style.width = highlighted ? '16px' : '12px'
-        el.style.height = highlighted ? '16px' : '12px'
-        el.style.borderWidth = highlighted ? '3px' : '2px'
+        dot.style.background = color
+        dot.style.width = highlighted ? '16px' : '12px'
+        dot.style.height = highlighted ? '16px' : '12px'
+        dot.style.borderWidth = highlighted ? '3px' : '2px'
         existing.delete(id)
         continue
       }
