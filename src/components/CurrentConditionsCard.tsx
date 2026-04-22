@@ -12,9 +12,9 @@ interface Props {
 export function CurrentConditionsCard({ reading, isLoading, error }: Props) {
   if (isLoading) {
     return (
-      <div className="rounded-xl border border-gray-200 p-5 animate-pulse">
+      <div className="rounded-xl border border-gray-200 p-4 sm:p-5 animate-pulse">
         <div className="h-5 bg-gray-200 rounded w-1/3 mb-4" />
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-2 gap-3 sm:gap-4">
           <div className="h-16 bg-gray-200 rounded" />
           <div className="h-16 bg-gray-200 rounded" />
         </div>
@@ -36,14 +36,14 @@ export function CurrentConditionsCard({ reading, isLoading, error }: Props) {
   const stale = dischargeAge !== null && dischargeAge > 90
 
   return (
-    <div className="rounded-xl border border-gray-200 p-5">
+    <div className="rounded-xl border border-gray-200 p-4 sm:p-5">
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-base font-semibold text-gray-900">Current Conditions</h2>
         {stale && (
           <span className="text-xs text-gray-400">Data may be delayed</span>
         )}
       </div>
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-2 gap-3 sm:gap-4">
         <Metric
           label="Streamflow"
           value={formatDischarge(reading.discharge)}
@@ -75,7 +75,7 @@ function Metric({
   return (
     <div className="bg-gray-50 rounded-lg p-3">
       <div className="text-xs text-gray-500 mb-1">{label}</div>
-      <div className="text-2xl font-bold text-gray-900 mb-1">{value}</div>
+      <div className="text-xl sm:text-2xl font-bold text-gray-900 mb-1">{value}</div>
       <div className="flex items-center gap-1.5 flex-wrap">
         {provisional && <ProvisionalBadge />}
         {time && (
