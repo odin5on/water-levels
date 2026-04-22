@@ -37,7 +37,7 @@ export function HistoricalChart({ data, unit, range, onRangeChange, isLoading, p
             <button
               key={r.value}
               onClick={() => onRangeChange(r.value)}
-              className={`text-xs px-2.5 py-1 rounded-full border transition-colors ${
+              className={`text-xs px-3 py-1.5 rounded-full border transition-colors ${
                 range === r.value
                   ? 'bg-blue-600 text-white border-blue-600'
                   : 'text-gray-600 border-gray-200 hover:border-gray-400'

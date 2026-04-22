@@ -21,6 +21,7 @@ export function HomePage() {
     initialLat && initialLng ? [initialLng, initialLat] : IOWA_CENTER,
   )
   const [hoveredSiteId, setHoveredSiteId] = useState<string | null>(null)
+  const [showMobileList, setShowMobileList] = useState(false)
   const navigate = useNavigate()
   const handleSiteClick = useCallback(
     (siteId: string) => navigate(`/station/${encodeURIComponent(siteId)}`),
@@ -80,13 +81,27 @@ export function HomePage() {
   }
 
   return (
-    <div className="flex h-screen overflow-hidden">
-      <div className="w-72 flex-shrink-0 flex flex-col h-full overflow-hidden">
-        <div className="px-4 py-3 border-b border-gray-200 bg-white">
-          <h1 className="text-base font-bold text-gray-900 leading-tight">Iowa Water Levels</h1>
-          <p className="text-xs text-gray-500">
-            {sitesLoading ? 'Loading…' : `${sites.length} river stations`}
-          </p>
+    <div className="flex h-dvh overflow-hidden">
+      {/* Sidebar: full-screen overlay on mobile, fixed sidebar on desktop */}
+      <div
+        className={`flex-col h-full overflow-hidden
+          absolute inset-0 z-20 bg-white
+          md:relative md:inset-auto md:z-auto md:w-72 md:flex-shrink-0 md:flex
+          ${showMobileList ? 'flex' : 'hidden md:flex'}`}
+      >
+        <div className="px-4 py-3 border-b border-gray-200 bg-white flex items-center justify-between">
+          <div>
+            <h1 className="text-base font-bold text-gray-900 leading-tight">Iowa Water Levels</h1>
+            <p className="text-xs text-gray-500">
+              {sitesLoading ? 'Loading…' : `${sites.length} river stations`}
+            </p>
+          </div>
+          <button
+            className="md:hidden text-sm font-medium text-blue-600 hover:text-blue-800 px-2 py-1 -mr-1"
+            onClick={() => setShowMobileList(false)}
+          >
+            ← Map
+          </button>
         </div>
         <div className="flex-1 min-h-0">
           {sitesLoading ? (
@@ -122,6 +137,18 @@ export function HomePage() {
           initialLng={initialLng}
           initialZoom={initialZoom}
         />
+        {/* Floating station list button — mobile only */}
+        <button
+          className="md:hidden absolute bottom-6 left-1/2 -translate-x-1/2 bg-white shadow-lg border border-gray-200 rounded-full px-5 py-3 text-sm font-medium text-gray-700 flex items-center gap-2 active:bg-gray-50"
+          onClick={() => setShowMobileList(true)}
+        >
+          <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <line x1="3" y1="18" x2="15" y2="18" />
+          </svg>
+          Stations
+        </button>
       </div>
     </div>
   )
