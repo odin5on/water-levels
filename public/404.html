@@ -1,0 +1,13 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <script>
+      // Redirect unknown paths back to the SPA
+      const repo = '/water-levels';
+      const path = window.location.pathname.slice(repo.length) || '/';
+      window.location.replace(repo + '/?redirect=' + encodeURIComponent(path + window.location.search + window.location.hash));
+    </script>
+  </head>
+  <body></body>
+</html>
