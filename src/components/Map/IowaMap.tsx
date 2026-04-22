@@ -40,6 +40,7 @@ export function IowaMap({
   const onSiteClickRef = useRef(onSiteClick)
   useEffect(() => { onSiteClickRef.current = onSiteClick })
   const activeRef = useRef(true)
+  const clickedRef = useRef(false)
   const [mapReady, setMapReady] = useState(false)
 
   const getColor = useCallback(
@@ -94,7 +95,7 @@ export function IowaMap({
     map.addControl(new maplibregl.NavigationControl(), 'top-right')
 
     map.on('moveend', () => {
-      if (!activeRef.current) return
+      if (!activeRef.current || clickedRef.current) return
       const c = map.getCenter()
       onMoveEndRef.current?.([c.lng, c.lat])
     })
@@ -160,6 +161,7 @@ export function IowaMap({
       })
 
       el.addEventListener('click', () => {
+        clickedRef.current = true
         hoverPopupRef.current?.remove()
         hoverPopupRef.current = null
         onSiteClickRef.current(id)
