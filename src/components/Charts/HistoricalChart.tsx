@@ -30,7 +30,7 @@ const RANGES: { label: string; value: TimeRange }[] = [
 export function HistoricalChart({ data, unit, range, onRangeChange, isLoading, paramLabel }: Props) {
   return (
     <div>
-      <div className="flex items-center justify-between mb-3">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-3">
         <h3 className="text-sm font-medium text-gray-700">{paramLabel} — Daily Mean</h3>
         <div className="flex gap-1">
           {RANGES.map((r) => (

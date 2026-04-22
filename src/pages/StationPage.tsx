@@ -52,18 +52,18 @@ export function StationPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="max-w-4xl mx-auto px-4 py-6">
+      <div className="max-w-4xl mx-auto px-4 py-4 sm:py-6">
         <Link
           to="/"
-          className="inline-flex items-center text-sm text-blue-600 hover:text-blue-800 mb-4"
+          className="inline-flex items-center text-sm text-blue-600 hover:text-blue-800 mb-3 py-1"
         >
           ← Back to Map
         </Link>
 
-        <div className="bg-white rounded-xl border border-gray-200 p-5 mb-4">
+        <div className="bg-white rounded-xl border border-gray-200 p-4 sm:p-5 mb-4">
           <div className="flex flex-wrap items-start justify-between gap-3">
             <div>
-              <h1 className="text-xl font-bold text-gray-900 leading-tight">
+              <h1 className="text-lg sm:text-xl font-bold text-gray-900 leading-tight">
                 {site?.properties.monitoring_location_name ?? decodedId}
               </h1>
               <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mt-1 text-sm text-gray-500">
@@ -98,7 +98,7 @@ export function StationPage() {
           />
         </div>
 
-        <div className="bg-white rounded-xl border border-gray-200 p-5 mb-4">
+        <div className="bg-white rounded-xl border border-gray-200 p-4 sm:p-5 mb-4">
           <div className="flex items-center justify-between mb-3">
             <h2 className="text-base font-semibold text-gray-900">7-Day</h2>
             <div className="flex gap-1">
@@ -126,7 +126,7 @@ export function StationPage() {
           )}
         </div>
 
-        <div className="bg-white rounded-xl border border-gray-200 p-5">
+        <div className="bg-white rounded-xl border border-gray-200 p-4 sm:p-5">
           <HistoricalChart
             data={historicalData}
             unit={unit}
